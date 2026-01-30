@@ -2,7 +2,7 @@
 // app/config/Config.php
 
 define('BASE_URL', 'http://localhost/projects/employee-management-system/public/');
-define('APP_NAME', 'Employee Management System');
+define('APP_NAME', 'MENU');
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'db_employee_management');
 define('DB_USER', 'root');

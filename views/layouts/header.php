@@ -16,64 +16,82 @@
 </head>
 <body>
 
+
 <?php if (isset($_SESSION['user_id'])): ?>
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="<?php echo BASE_URL; ?>">
-            <i class="bi bi-building"></i> <?php echo APP_NAME; ?>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo BASE_URL; ?>dashboard">
-                        <i class="bi bi-speedometer2"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo BASE_URL; ?>employee">
-                        <i class="bi bi-people"></i> Employees
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo BASE_URL; ?>department">
-                        <i class="bi bi-diagram-3"></i> Departments
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo BASE_URL; ?>position">
-                        <i class="bi bi-briefcase"></i> Positions
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo BASE_URL; ?>salary">
-                        <i class="bi bi-cash-coin"></i> Salaries
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo BASE_URL; ?>leaverequest">
-                        <i class="bi bi-calendar-check"></i> Leave Requests
-                    </a>
-                </li>
-            </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                        <i class="bi bi-person-circle"></i> <?php echo $_SESSION['username']; ?>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Profile</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>auth/logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
+<div class="d-flex">
+
+    <!-- Sidebar -->
+    <aside class="sidebar bg-primary text-white p-3">
+
+        <div class="text-center mb-4">
+            <h5 class="mb-0">
+                <i class="bi bi-building"></i> <?php echo APP_NAME; ?>
+            </h5>
         </div>
-    </div>
-</nav>
+
+        <ul class="nav nav-pills flex-column gap-1">
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="<?php echo BASE_URL; ?>dashboard">
+                    <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="<?php echo BASE_URL; ?>employee">
+                    <i class="bi bi-people me-2"></i> Employees
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="<?php echo BASE_URL; ?>department">
+                    <i class="bi bi-diagram-3 me-2"></i> Departments
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="<?php echo BASE_URL; ?>position">
+                    <i class="bi bi-briefcase me-2"></i> Positions
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="<?php echo BASE_URL; ?>salary">
+                    <i class="bi bi-cash-coin me-2"></i> Salaries
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="<?php echo BASE_URL; ?>leaverequest">
+                    <i class="bi bi-calendar-check me-2"></i> Leave Requests
+                </a>
+            </li>
+
+        </ul>
+
+        <!-- User dropdown at bottom -->
+        <div class="mt-auto pt-3 border-top">
+            <div class="dropdown">
+                <a class="text-white dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">
+                    <i class="bi bi-person-circle me-2"></i>
+                    <?php echo $_SESSION['username']; ?>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item" href="<?php echo BASE_URL; ?>auth/logout">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </aside>
+
+    <!-- Main content -->
+    <main class="content flex-fill p-4">
 <?php endif; ?>
 
 <!-- Alert Messages -->
