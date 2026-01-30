@@ -7,7 +7,7 @@
         <div class="auth-card">
             <div class="auth-card-header text-center">
                 <h5 class="mb-1">Register</h5>
-                <p class="text-white mb-0">Create a new account</p>
+                <p class="text-white mb-0">Create a new admin account</p>
             </div>
 
             <?php if (isset($error)): ?>
@@ -31,18 +31,6 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label text-light small">Role</label>
-                    <select class="form-control auth-input" name="role" required>
-                        <option value="admin"
-                            <?php echo (isset($_POST['role']) && $_POST['role'] === 'admin') ? 'selected' : ''; ?>>Admin
-                        </option>
-                        <option value="employee"
-                            <?php echo (!isset($_POST['role']) || $_POST['role'] === 'employee') ? 'selected' : ''; ?>>
-                            Employee</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
                     <label class="form-label text-light small">Password</label>
                     <div class="input-group auth-input-group">
                         <input type="password" class="form-control auth-input" name="password" id="password"
@@ -60,12 +48,12 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100 auth-submit-btn">
-                    Create
+                    Create Admin
                 </button>
 
                 <div class="mt-2 text-center">
                     Already have an account?
-                    <a href="<?php echo BASE_URL; ?>dashboard" class="auth-link">Login
+                    <a href="<?php echo BASE_URL; ?>auth/login" class="auth-link">Login
                     </a>
                 </div>
             </form>
