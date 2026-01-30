@@ -6,7 +6,12 @@
             <div class="card shadow">
                 <div class="card-body p-5">
                     <div class="text-center mb-4">
-                        <i class="bi bi-building display-1 text-primary"></i>
+                        <img
+                            src="<?php echo BASE_URL; ?>assets/images/logo.png"
+                            alt="Logo"
+                            class="mb-3"
+                            style="width: 90px; height: auto;">
+
                         <h3 class="mt-3"><?php echo APP_NAME; ?></h3>
                         <p class="text-muted">Please login to continue</p>
                     </div>
@@ -40,6 +45,14 @@
                             </button>
                         </div>
                     </form>
+
+                    <div class="text-center mt-3">
+                        <span class="text-muted">Don't have an account?</span>
+                        <a href="<?php echo BASE_URL; ?>auth/register" class="text-decoration-none fw-semibold">
+                            Register here
+                        </a>
+                    </div>
+
 
                     <div class="text-center mt-4">
                         <small class="text-muted">
