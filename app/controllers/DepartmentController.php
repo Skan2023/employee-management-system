@@ -20,7 +20,8 @@ class DepartmentController extends Controller {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
-                'department_name' => trim($_POST['department_name'])
+                'department_name' => trim($_POST['department_name']),
+                'description' => trim($_POST['description'] ??'')
             ];
 
             if ($this->departmentModel->create($data)) {
@@ -40,7 +41,8 @@ class DepartmentController extends Controller {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
-                'department_name' => trim($_POST['department_name'])
+                'department_name' => trim($_POST['department_name']),
+                'description' => trim($_POST['description'] ??'')
             ];
 
             if ($this->departmentModel->update($id, $data)) {
