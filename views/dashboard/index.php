@@ -110,6 +110,7 @@
             </div>
         </div>
 
+
         <div class="col-md-6">
             <div class="card shadow-sm">
                 <div class="card-header bg-white">
