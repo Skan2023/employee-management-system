@@ -119,10 +119,10 @@
 
                     <!-- Actions -->
                     <div class="d-flex justify-content-center gap-2">
-                        <a href="<?php echo BASE_URL; ?>employee/view/<?php echo $employee['id']; ?>"
+                        <!-- <a href="<?php echo BASE_URL; ?>employee/view/<?php echo $employee['id']; ?>"
                            class="btn btn-sm btn-outline-info">
                             <i class="bi bi-eye"></i>
-                        </a>
+                        </a> -->
 
                         <a href="<?php echo BASE_URL; ?>employee/edit/<?php echo $employee['id']; ?>"
                            class="btn btn-sm btn-outline-warning">

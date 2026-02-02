@@ -54,11 +54,11 @@
                     </div>
 
 
-                    <div class="text-center mt-4">
+                    <!-- <div class="text-center mt-4">
                         <small class="text-muted">
                             Default: admin / password
                         </small>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

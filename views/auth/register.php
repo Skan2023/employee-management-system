@@ -7,7 +7,7 @@
         <div class="auth-card">
             <div class="auth-card-header text-center">
                 <h5 class="mb-1">Register</h5>
-                <p class="text-white mb-0">Create a new admin account</p>
+                <p class="text-black mb-0">Create a new admin account</p>
             </div>
 
             <?php if (isset($error)): ?>
@@ -24,14 +24,14 @@
 
             <form method="POST" action="<?php echo BASE_URL; ?>auth/register" class="mt-4">
                 <div class="mb-3">
-                    <label class="form-label text-light small">Username</label>
+                    <label class="form-label text-black small">Username</label>
                     <input type="text" class="form-control auth-input" name="username"
                         value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>"
                         placeholder="Enter username" required>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label text-light small">Password</label>
+                    <label class="form-label text-black small">Password</label>
                     <div class="input-group auth-input-group">
                         <input type="password" class="form-control auth-input" name="password" id="password"
                             placeholder="Create a password" required>
@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class="form-label text-light small">Confirm Password</label>
+                    <label class="form-label text-black small">Confirm Password</label>
                     <input type="password" class="form-control auth-input" name="confirm_password" id="confirm_password"
                         placeholder="Re-enter your password" required>
                 </div>
