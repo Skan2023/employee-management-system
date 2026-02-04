@@ -1,15 +1,31 @@
 <!-- FILE: views/leave_requests/index.php -->
-<?php $title = "Leave Requests Management"; require_once '../views/layouts/header.php'; ?>
+
+<?php
+$title = isset($_SESSION['role']) && $_SESSION['role'] === 'employee' ? 'My Leave Requests' : 'Leave Requests Management';
+require_once '../views/layouts/header.php';
+?>
 
 <div class="container-fluid py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2><i class="bi bi-calendar-check"></i> Leave Requests Management</h2>
-            <p class="text-muted mb-0">Manage and track employee leave requests</p>
+            <h2><i class="bi bi-calendar-check"></i> <?php echo isset($_SESSION['role']) && $_SESSION['role'] === 'employee' ? 'My Leave Requests' : 'Leave Requests Management'; ?></h2>
+            <p class="text-muted mb-0">
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'employee'): ?>
+                    View and track your leave requests
+                <?php else: ?>
+                    Manage and track employee leave requests
+                <?php endif; ?>
+            </p>
         </div>
+        <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'employee'): ?>
         <a href="<?php echo BASE_URL; ?>leaverequest/create" class="btn btn-primary">
             <i class="bi bi-plus-circle"></i> New Leave Request
         </a>
+        <?php elseif (!isset($_SESSION['role']) || $_SESSION['role'] === 'admin'): ?>
+        <a href="<?php echo BASE_URL; ?>leaverequest/create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> New Leave Request
+        </a>
+        <?php endif; ?>
     </div>
 
     <!-- Statistics Cards -->
@@ -78,7 +94,8 @@
         </div>
     </div>
 
-    <!-- Filters -->
+    <?php if (!isset($_SESSION['role']) || $_SESSION['role'] === 'admin'): ?>
+    <!-- Filters for admin only -->
     <div class="card shadow-sm mb-4">
         <div class="card-body">
             <div class="row g-3">
@@ -117,6 +134,7 @@
             </div>
         </div>
     </div>
+    <?php endif; ?>
 
     <!-- Leave Requests Table -->
     <div class="card shadow-sm">
@@ -138,8 +156,10 @@
                     <thead class="table-light">
                         <tr>
                             <th width="8%">#</th>
-                            <th width="15%">Employee</th>
-                            <th width="10%">Code</th>
+                            <?php if (!isset($_SESSION['role']) || $_SESSION['role'] === 'admin'): ?>
+                                <th width="15%">Employee</th>
+                                <th width="10%">Code</th>
+                            <?php endif; ?>
                             <th width="12%">Leave Type</th>
                             <th width="10%">Start Date</th>
                             <th width="10%">End Date</th>
@@ -169,10 +189,12 @@
                                 data-type="<?php echo htmlspecialchars($leave['leave_type']); ?>"
                                 data-employee="<?php echo htmlspecialchars($leave['full_name'] . ' ' . $leave['employee_code']); ?>">
                                 <td><?php echo $index + 1; ?></td>
-                                <td><?php echo htmlspecialchars($leave['full_name']); ?></td>
-                                <td>
-                                    <span class="badge bg-secondary"><?php echo htmlspecialchars($leave['employee_code']); ?></span>
-                                </td>
+                                <?php if (!isset($_SESSION['role']) || $_SESSION['role'] === 'admin'): ?>
+                                    <td><?php echo htmlspecialchars($leave['full_name']); ?></td>
+                                    <td>
+                                        <span class="badge bg-secondary"><?php echo htmlspecialchars($leave['employee_code']); ?></span>
+                                    </td>
+                                <?php endif; ?>
                                 <td><?php echo htmlspecialchars($leave['leave_type']); ?></td>
                                 <td><?php echo date('M d, Y', strtotime($leave['start_date'])); ?></td>
                                 <td><?php echo date('M d, Y', strtotime($leave['end_date'])); ?></td>
@@ -191,11 +213,12 @@
                                 </td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <a href="<?php echo BASE_URL; ?>leaverequest/view/<?php echo $leave['id']; ?>" 
+                                        <a href="<?php echo BASE_URL; ?>leaverequest/show/<?php echo $leave['id']; ?>" 
                                            class="btn btn-sm btn-info" title="View Details">
                                             <i class="bi bi-eye"></i>
                                         </a>
-                                        <?php if ($leave['status'] == 'pending'): ?>
+                                        <?php if ($_SESSION['role'] === 'admin'): ?>
+                                        <?php if ((!isset($_SESSION['role']) || $_SESSION['role'] === 'admin') && $leave['status'] == 'pending'): ?>
                                         <a href="<?php echo BASE_URL; ?>leaverequest/approve/<?php echo $leave['id']; ?>" 
                                            class="btn btn-sm btn-success" 
                                            onclick="return confirm('Approve this leave request for <?php echo htmlspecialchars($leave['full_name']); ?>?')"
@@ -209,12 +232,15 @@
                                             <i class="bi bi-x-circle"></i>
                                         </a>
                                         <?php endif; ?>
+                                        <?php if (!isset($_SESSION['role']) || $_SESSION['role'] === 'admin' || ($_SESSION['role'] === 'employee' && $leave['user_id'] == $_SESSION['user_id'])): ?>
                                         <a href="<?php echo BASE_URL; ?>leaverequest/delete/<?php echo $leave['id']; ?>" 
                                            class="btn btn-sm btn-danger" 
                                            onclick="return confirm('Are you sure you want to delete this leave request?')"
                                            title="Delete">
                                             <i class="bi bi-trash"></i>
                                         </a>
+                                        <?php endif; ?>
+                                        <?php endif ?>
                                     </div>
                                 </td>
                             </tr>
@@ -239,13 +265,23 @@
                         ?>">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <h6 class="mb-0"><?php echo htmlspecialchars($leave['full_name']); ?></h6>
-                                    <span class="badge bg-<?php 
-                                        echo $leave['status'] == 'approved' ? 'success' : 
-                                            ($leave['status'] == 'pending' ? 'warning text-dark' : 'danger'); 
-                                    ?>">
-                                        <?php echo ucfirst($leave['status']); ?>
-                                    </span>
+                                    <?php if (!isset($_SESSION['role']) || $_SESSION['role'] === 'admin'): ?>
+                                        <h6 class="mb-0"><?php echo htmlspecialchars($leave['full_name']); ?></h6>
+                                        <span class="badge bg-<?php 
+                                            echo $leave['status'] == 'approved' ? 'success' : 
+                                                ($leave['status'] == 'pending' ? 'warning text-dark' : 'danger'); 
+                                        ?>">
+                                            <?php echo ucfirst($leave['status']); ?>
+                                        </span>
+                                    <?php else: ?>
+                                        <h6 class="mb-0">My Request</h6>
+                                        <span class="badge bg-<?php 
+                                            echo $leave['status'] == 'approved' ? 'success' : 
+                                                ($leave['status'] == 'pending' ? 'warning text-dark' : 'danger'); 
+                                        ?>">
+                                            <?php echo ucfirst($leave['status']); ?>
+                                        </span>
+                                    <?php endif; ?>
                                 </div>
                                 <p class="text-muted small mb-2">
                                     <i class="bi bi-person-badge"></i> <?php echo $leave['employee_code']; ?>
@@ -263,11 +299,11 @@
                                     <?php echo substr(htmlspecialchars($leave['reason']), 0, 80); ?>...
                                 </p>
                                 <div class="d-flex gap-1">
-                                    <a href="<?php echo BASE_URL; ?>leaverequest/view/<?php echo $leave['id']; ?>" 
+                                    <a href="<?php echo BASE_URL; ?>leaverequest/show/<?php echo $leave['id']; ?>" 
                                        class="btn btn-sm btn-info">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <?php if ($leave['status'] == 'pending'): ?>
+                                    <?php if ((!isset($_SESSION['role']) || $_SESSION['role'] === 'admin') && $leave['status'] == 'pending'): ?>
                                     <a href="<?php echo BASE_URL; ?>leaverequest/approve/<?php echo $leave['id']; ?>" 
                                        class="btn btn-sm btn-success">
                                         <i class="bi bi-check"></i>
